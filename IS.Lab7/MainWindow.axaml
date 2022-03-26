@@ -1,0 +1,194 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
+        x:Class="IS.Lab7.MainWindow"
+        CanResize="False"
+        Title="Simple SubCipher Frequency Attack Demonstration">
+    <Window.Styles>
+        <Style Selector="TextBox.tb">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Height" Value="5"/>
+            <Setter Property="MaxLength" Value="1"/>
+        </Style>
+        <Style Selector="TextBlock.txb">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style Selector="TextBlock.notif">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="Thin" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+        </Style>
+        <Style Selector="TextBlock.h2">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="FontWeight" Value="Black"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Width" Value="125"/>
+        </Style>
+        <Style Selector="ListBox.lb">
+            <Setter Property="Padding" Value="1" />
+            <Setter Property="Focusable" Value="False" />
+        </Style>
+        <Style Selector="StackPanel.sp">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Spacing" Value="5"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Window.Styles>
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="10" Spacing="10">
+        <StackPanel Orientation="Horizontal">
+        <TextBlock FontSize="24" FontWeight="Bold" Text="Simple SubCipher Frequency Attack"/>
+        <TextBlock FontSize="9" FontWeight="Thin" Margin="0,0,3,0" HorizontalAlignment="Right" VerticalAlignment="Top" Text="Created By Demydko Yuri" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="10">
+            <StackPanel Orientation="Vertical">
+                <TextBlock x:Name="EncTextHeaderTb" Classes="h2">Encrypted Text</TextBlock>
+                <TextBox Focusable="False" TextWrapping="Wrap" IsReadOnly="True" Width="390" Height="300" x:Name="EncTextTxb" />
+            </StackPanel>
+            
+            <StackPanel Orientation="Vertical">
+                <TextBlock Classes="h2">Attacked Text</TextBlock>
+                <TextBox Focusable="False" TextWrapping="Wrap" IsReadOnly="True" Width="390" Height="300"
+                         x:Name="ProcessedBlock" />
+            </StackPanel>
+            
+            <StackPanel Orientation="Vertical">
+                <TextBlock Classes="h2">Letter Stats (Enc.)</TextBlock>
+                <ListBox Classes="lb" x:Name="LetterStats" Width="125" Height="300">
+                </ListBox>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Classes="h2">Bigram Stats (Enc.)</TextBlock>
+                <ListBox Classes="lb" x:Name="BigramStats" Width="125" Height="300">
+                </ListBox>
+            </StackPanel>
+            </StackPanel>
+       
+        
+        <StackPanel Orientation="Horizontal" Spacing="10">
+            <Button x:Name="LoadBtn" Click="LoadText_OnClick">Encrypt Own Text</Button>
+            <Button x:Name="EncryptExBtn" Click="GrabExampleAndProcess_Click">Encrypt Example Text</Button>
+            <Button x:Name="ShowOrigBtn" IsEnabled="False" Click="ShowOrigBtn_OnClick">Show Original Text</Button>
+            <Button x:Name="ShowSampleBtn" IsEnabled="True" Click="ShowSampleBtn_OnClick">Show Sample Text Stats</Button>
+            <TextBlock x:Name="NotificationTb" Classes="notif" Text="Load Text to Encrypt or Pick an Example One" />
+        </StackPanel>
+        <StackPanel IsEnabled="False" x:Name="KeySp" Orientation="Vertical" HorizontalAlignment="Left">
+            <StackPanel x:Name="StackPanelA_M" Orientation="Horizontal">
+                <StackPanel Orientation="Vertical" Classes="sp">
+                    <TextBlock Classes="txb"  Text="A"/>
+                    <TextBox KeyUp="InputElement_OnKeyUp" Classes="tb" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Classes="sp">
+                    <TextBlock Classes="txb"  Text="B"/>
+                    <TextBox KeyUp="InputElement_OnKeyUp" Classes="tb" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Classes="sp">
+                    <TextBlock Classes="txb"  Text="C"/>
+                    <TextBox KeyUp="InputElement_OnKeyUp" Classes="tb" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Classes="sp">
+                    <TextBlock Classes="txb"  Text="D"/>
+                    <TextBox KeyUp="InputElement_OnKeyUp" Classes="tb" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Classes="sp">
+                    <TextBlock Classes="txb"  Text="E"/>
+                    <TextBox KeyUp="InputElement_OnKeyUp" Classes="tb" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Classes="sp">
+                    <TextBlock Classes="txb"  Text="F"/>
+                    <TextBox KeyUp="InputElement_OnKeyUp" Classes="tb" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Classes="sp">
+                    <TextBlock Classes="txb"  Text="G"/>
+                    <TextBox KeyUp="InputElement_OnKeyUp" Classes="tb" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Classes="sp">
+                    <TextBlock Classes="txb"  Text="H"/>
+                    <TextBox KeyUp="InputElement_OnKeyUp" Classes="tb" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Classes="sp">
+                    <TextBlock Classes="txb"  Text="I"/>
+                    <TextBox KeyUp="InputElement_OnKeyUp" Classes="tb" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Classes="sp">
+                    <TextBlock Classes="txb"  Text="J"/>
+                    <TextBox KeyUp="InputElement_OnKeyUp" Classes="tb" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Classes="sp">
+                    <TextBlock Classes="txb"  Text="K"/>
+                    <TextBox KeyUp="InputElement_OnKeyUp" Classes="tb" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Classes="sp">
+                    <TextBlock Classes="txb"  Text="L"/>
+                    <TextBox KeyUp="InputElement_OnKeyUp" Classes="tb" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Classes="sp">
+                    <TextBlock Classes="txb"  Text="M"/>
+                    <TextBox KeyUp="InputElement_OnKeyUp" Classes="tb" />
+                </StackPanel>
+            </StackPanel>
+            <StackPanel x:Name="StackPanelN_Z" Orientation="Horizontal">
+                <StackPanel Orientation="Vertical" Classes="sp">
+                    <TextBlock Classes="txb"  Text="N"/>
+                    <TextBox KeyUp="InputElement_OnKeyUp" Classes="tb" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Classes="sp">
+                    <TextBlock Classes="txb"  Text="O"/>
+                    <TextBox KeyUp="InputElement_OnKeyUp" Classes="tb" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Classes="sp">
+                    <TextBlock Classes="txb"  Text="P"/>
+                    <TextBox KeyUp="InputElement_OnKeyUp" Classes="tb" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Classes="sp">
+                    <TextBlock Classes="txb"  Text="Q"/>
+                    <TextBox KeyUp="InputElement_OnKeyUp" Classes="tb" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Classes="sp">
+                    <TextBlock Classes="txb"  Text="R"/>
+                    <TextBox KeyUp="InputElement_OnKeyUp" Classes="tb" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Classes="sp">
+                    <TextBlock Classes="txb"  Text="S"/>
+                    <TextBox KeyUp="InputElement_OnKeyUp" Classes="tb" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Classes="sp">
+                    <TextBlock Classes="txb"  Text="T"/>
+                    <TextBox KeyUp="InputElement_OnKeyUp" Classes="tb" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Classes="sp">
+                    <TextBlock Classes="txb"  Text="U"/>
+                    <TextBox KeyUp="InputElement_OnKeyUp" Classes="tb" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Classes="sp">
+                    <TextBlock Classes="txb"  Text="V"/>
+                    <TextBox KeyUp="InputElement_OnKeyUp" Classes="tb" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Classes="sp">
+                    <TextBlock Classes="txb"  Text="W"/>
+                    <TextBox KeyUp="InputElement_OnKeyUp" Classes="tb" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Classes="sp">
+                    <TextBlock Classes="txb"  Text="X"/>
+                    <TextBox KeyUp="InputElement_OnKeyUp" Classes="tb" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Classes="sp">
+                    <TextBlock Classes="txb"  Text="Y"/>
+                    <TextBox KeyUp="InputElement_OnKeyUp" Classes="tb" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Classes="sp">
+                    <TextBlock Classes="txb"  Text="Z"/>
+                    <TextBox KeyUp="InputElement_OnKeyUp" Classes="tb" />
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        
+    </StackPanel>
+   
+</Window>
